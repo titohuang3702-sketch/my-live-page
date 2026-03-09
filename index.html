@@ -3,39 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的专属赛事直播间</title>
+    <title>我的专属私人直播间</title>
     <style>
-        body {
-            font-family: "Microsoft YaHei", sans-serif;
-            background-color: #f0f2f5;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 { color: #333; }
-        .video-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        iframe {
-            width: 100%;
-            height: 450px;
-            border: none;
-        }
+        body { font-family: "Microsoft YaHei", sans-serif; background-color: #111; color: white; text-align: center; margin: 0; padding: 20px; }
+        .video-container { max-width: 900px; margin: 0 auto; background: black; padding: 10px; border-radius: 10px; }
+        video { width: 100%; height: auto; outline: none; }
     </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/flv.js/1.6.2/flv.min.js"></script>
 </head>
 <body>
 
-    <h1>🔥 欢迎来到我的专属直播间 🔥</h1>
-    <p>今天为大家带来精彩的赛事直播！</p>
-
+    <h2>⚽ 独家赛事高清直播 ⚽</h2>
+    
     <div class="video-container">
-        <iframe src="//player.bilibili.com/player.html?bvid=BV1xx411c7mD&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+        <video id="videoElement" controls autoplay muted></video>
     </div>
 
+    <script>
+        if (flvjs.isSupported()) {
+            var videoElement = document.getElementById('videoElement');
+            var flvPlayer = flvjs.createPlayer({
+                type: 'flv',
+                // ⬇️ ⚠️ 只需要改这里：把“你的推流码”这几个中文字，换成你在 OBS 里填的那个密码 ⬇️
+                url: 'http://43.99.22.217:8080/live/chelsea.flv'
+            });
+            flvPlayer.attachMediaElement(videoElement);
+            flvPlayer.load();
+            flvPlayer.play();
+        }
+    </script>
 </body>
 </html>
